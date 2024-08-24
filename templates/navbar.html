@@ -1,0 +1,54 @@
+
+
+<nav class="navbar navbar-expand-lg" style="padding-top: 0%;">
+    <div class="container-fluid" style="background-color: rgba(0, 0, 0, 0.655); padding-top: 5px; padding-bottom: 5px;">
+      <a class="navbar-brand" href="{% url 'home' %}"><h3 style="color: beige"><strong>FeastFlow</strong></h3></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if request.user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" style="color: beige;" href="{% url 'itemreg' %}">
+              <strong>Register Item</strong></a>
+          </li>
+          {% endif %}
+          {% if request.user.is_authenticated %}
+          <div style="background-color: beige; border: 10px; border-radius: 10px">
+            <h6 align="center" style="padding-top: 10px; padding-left: 10px; padding-right: 10px; color: blue">Hello @{{ request.user.username }}</h6>
+          </div>
+          <li>
+            <a href="{% url 'showcart' %}" style="padding-left: 10px; padding-top: 10px">
+              <button class="btn btn-primary" type="submit">Cart</button>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'logout' %}" style="padding-left: 10px; padding-top: 10px">
+              <button class="btn btn-danger" type="submit">Logout</button>
+            </a>
+          </li>
+
+          {% else %}
+          <li>
+            <a href="{% url 'userlogin' %}" style="padding-right: 10px; padding-top: 10px">
+              <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+            </a>
+          </li>
+
+          <li>
+            <a href="{% url 'userreg' %}" style="padding-right: 10px; padding-top: 10px">
+              <button class="btn btn-success my-2 my-sm-0" type="submit">Register</button>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+        <form class="d-flex" method="POST" action="{% url 'home' %}">
+          {% csrf_token %}
+          <input class="form-control me-2" name="ser" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
